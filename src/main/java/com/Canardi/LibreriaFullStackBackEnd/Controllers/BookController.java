@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController()
 @RequestMapping("/book")
+@CrossOrigin("http://localhost:4200/")
 public class BookController {
 
     @Autowired
@@ -51,6 +52,7 @@ public class BookController {
     public ResponseEntity<Void> deleteBookById(@PathVariable Long id){
         Optional<Book> BookById = bookService.getBookById(id);
         if(BookById.isPresent()) {
+            bookService.deleteBook(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
